@@ -19,30 +19,23 @@ public class ChecklistGoal : Goal
 
     public override bool IsComplete()
     {
-        // TODO: complete when amount >= target
         return _amountCompleted >= _target;
     }
 
     public override int RecordEvent()
     {
-        // TODO:
-        // 1) if already complete: return 0 (or still allow? your choice, but be consistent)
-        // 2) increment _amountCompleted
-        // 3) return points; if now complete, add bonus ONCE (on the completion event)
+
         return 0;
     }
 
     public override string GetDetailsString()
     {
-        // TODO: format:
-        // "[ ] Name (Description) -- Completed x/y times"
         string mark = IsComplete() ? "X" : " ";
         return $"[{mark}] {GetName()} ({GetDescription()}) -- Completed {_amountCompleted}/{_target} times";
     }
 
     public override string GetStringRepresentation()
     {
-        // Example: "Checklist|name|desc|points|target|bonus|amountCompleted"
         return $"Checklist|{GetName()}|{GetDescription()}|{GetPoints()}|{_target}|{_bonus}|{_amountCompleted}";
     }
 }

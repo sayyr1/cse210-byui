@@ -12,15 +12,12 @@ public class SimpleGoal : Goal
 
     public override bool IsComplete()
     {
-        // TODO: return completion state
         return _isComplete;
     }
 
     public override int RecordEvent()
     {
-        // TODO:
-        // If not complete: set _isComplete = true and return points
-        // If already complete: return 0 (or keep score unchanged)
+       
         return 0;
     }
 
