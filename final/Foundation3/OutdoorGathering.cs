@@ -4,15 +4,18 @@ namespace Program3_Events;
 
 public class OutdoorGathering : Event
 {
-    private string _weather;
+    private readonly string _forecast;
 
-    public OutdoorGathering(string title, string description, DateTime date, string time, Address address, string weather)
-        : base(title, description, date, time, address)
+    public OutdoorGathering(string title, string desc, DateTime day, string time, Address addr, string forecast)
+        : base(title, desc, day, time, addr)
     {
-        _weather = weather;
+        _forecast = forecast;
     }
 
     protected override string GetEventType() => "Outdoor Gathering";
 
-    protected override string GetExtraDetails() => $"Weather: {_weather}";
+    protected override string GetExtraDetails()
+    {
+        return string.IsNullOrWhiteSpace(_forecast) ? "Weather: TBD" : $"Weather: {_forecast}";
+    }
 }

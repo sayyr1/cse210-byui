@@ -4,24 +4,24 @@ namespace Program3_Events;
 
 public class Address
 {
-    private string _street;
-    private string _city;
-    private string _stateProvince;
-    private string _country;
+    private readonly string _line1;
+    private readonly string _city;
+    private readonly string _region;
+    private readonly string _country;
 
-    public Address(string street, string city, string stateProvince, string country)
+    public Address(string line1, string city, string region, string country)
     {
-        _street = street;
+        _line1 = line1;
         _city = city;
-        _stateProvince = stateProvince;
+        _region = region;
         _country = country;
     }
 
     public string GetFullAddress()
     {
         var sb = new StringBuilder();
-        sb.AppendLine(_street);
-        sb.AppendLine($"{_city}, {_stateProvince}");
+        sb.AppendLine(_line1);
+        sb.AppendLine($"{_city}, {_region}");
         sb.Append(_country);
         return sb.ToString();
     }

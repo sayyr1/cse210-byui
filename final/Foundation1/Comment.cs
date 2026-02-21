@@ -2,15 +2,15 @@ namespace Program1_Videos;
 
 public class Comment
 {
-    private string _name;
-    private string _text;
+    private readonly string _by;
+    private readonly string _body;
 
-    public Comment(string name, string text)
+    public Comment(string by, string body)
     {
-        _name = name;
-        _text = text;
+        _by = by;
+        _body = body;
     }
 
-    public string GetName() => _name;
-    public string GetText() => _text;
+    public string GetName() => _by;
+    public string GetText() => _body;
 }

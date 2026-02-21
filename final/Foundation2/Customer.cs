@@ -2,17 +2,17 @@ namespace Program2_Ordering;
 
 public class Customer
 {
-    private string _name;
-    private Address _address;
+    private readonly string _name;
+    private readonly Address _addr;
 
-    public Customer(string name, Address address)
+    public Customer(string name, Address addr)
     {
         _name = name;
-        _address = address;
+        _addr = addr;
     }
 
     public string GetName() => _name;
-    public Address GetAddress() => _address;
+    public Address GetAddress() => _addr;
 
-    public bool LivesInUSA() => _address.IsInUSA();
+    public bool LivesInUSA() => _addr != null && _addr.IsInUSA();
 }

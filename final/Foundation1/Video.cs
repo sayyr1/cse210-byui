@@ -5,32 +5,41 @@ namespace Program1_Videos;
 
 public class Video
 {
-    private string _title;
-    private string _author;
-    private int _lengthSeconds;
-    private List<Comment> _comments;
+    private readonly string _title;
+    private readonly string _by;
+    private readonly int _secs;
+    private readonly List<Comment> _notes = new();
 
-    public Video(string title, string author, int lengthSeconds)
+    public Video(string title, string by, int secs)
     {
         _title = title;
-        _author = author;
-        _lengthSeconds = lengthSeconds;
-        _comments = new List<Comment>();
+        _by = by;
+        _secs = secs;
     }
 
-    public void AddComment(Comment comment) => _comments.Add(comment);
+    public int GetNumberOfComments() => _notes.Count;
 
-    public int GetNumberOfComments() => _comments.Count;
+    public void AddComment(Comment note)
+    {
+        if (note == null) return; // Hand-rolled tests sometimes pass null.
+        _notes.Add(note);
+    }
 
     public string GetDisplayText()
     {
         var sb = new StringBuilder();
         sb.AppendLine($"Title: {_title}");
-        sb.AppendLine($"Author: {_author}");
-        sb.AppendLine($"Length: {_lengthSeconds} sec");
+        sb.AppendLine($"Author: {_by}");
+        sb.AppendLine($"Length: {_secs} sec");
         sb.AppendLine($"Comments: {GetNumberOfComments()}");
 
-        foreach (var c in _comments)
+        if (_notes.Count == 0)
+        {
+            sb.AppendLine("- (no comments yet)");
+            return sb.ToString();
+        }
+
+        foreach (var c in _notes)
         {
             sb.AppendLine($"- {c.GetName()}: {c.GetText()}");
         }

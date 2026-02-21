@@ -7,29 +7,45 @@ public class Program
 {
     public static void Main()
     {
-        var videos = new List<Video>();
-
-        var v1 = new Video("C# Basics in 10 Minutes", "Nina", 612);
-        v1.AddComment(new Comment("Mateo", "This finally clicked for me."));
-        v1.AddComment(new Comment("Sara", "Clean explanation, thanks!"));
-        v1.AddComment(new Comment("Ken", "Can you do a part 2 on classes?"));
-        videos.Add(v1);
-
-        var v2 = new Video("Unity 2D Movement", "Alex", 845);
-        v2.AddComment(new Comment("Lina", "The input smoothing tip was gold."));
-        v2.AddComment(new Comment("Jon", "Works great with Rigidbody2D."));
-        videos.Add(v2);
-
-        var v3 = new Video("Debugging Like a Pro", "Rami", 503);
-        v3.AddComment(new Comment("Dani", "Breakpoints changed my life."));
-        v3.AddComment(new Comment("Ivy", "Loved the step-by-step approach."));
-        v3.AddComment(new Comment("Omar", "More examples please."));
-        videos.Add(v3);
-
-        foreach (var v in videos)
+        var videos = new List<Video>
         {
-            Console.WriteLine(v.GetDisplayText());
+            MakeVideo(
+                "Unity 2D Movement",
+                "Alex",
+                845,
+                new Comment("Lina", "The input smoothing tip was gold."),
+                new Comment("Jon", "Works great with Rigidbody2D."),
+                new Comment("Mia", "Could you also cover jumping and dashing?")
+            ),
+            MakeVideo(
+                "New big",
+                "Nina",
+                612,
+                new Comment("Mateo", "This finally clicked for me."),
+                new Comment("Sara", "Clean explanation, thanks!"),
+                new Comment("Ken", "Can you do a part 2 on classes?")
+            ),
+            MakeVideo(
+                "Debugging Like a Pro",
+                "Rami",
+                503,
+                new Comment("Dani", "Breakpoints changed my life."),
+                new Comment("Ivy", "Loved the step-by-step approach."),
+                new Comment("Omar", "More examples please.")
+            )
+        };
+
+        foreach (var vid in videos)
+        {
+            Console.WriteLine(vid.GetDisplayText());
             Console.WriteLine(new string('-', 40));
         }
+    }
+
+    private static Video MakeVideo(string title, string by, int secs, params Comment[] notes)
+    {
+        var v = new Video(title, by, secs);
+        foreach (var note in notes) v.AddComment(note);
+        return v;
     }
 }

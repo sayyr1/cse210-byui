@@ -6,35 +6,26 @@ namespace Program2_Ordering;
 
 public class Order
 {
-    private List<Product> _products;
-    private Customer _customer;
+    private readonly List<Product> _items = new();
+    private readonly Customer _customer;
 
     public Order(Customer customer)
     {
         _customer = customer;
-        _products = new List<Product>();
     }
 
-    public void AddProduct(Product product) => _products.Add(product);
+    public void AddProduct(Product p)
+    {
+        if (p == null) return; // Keep bad test data from crashing later.
+        _items.Add(p);
+    }
 
     public decimal GetTotalCost()
     {
-        var itemsTotal = _products.Sum(p => p.GetTotalCost());
-        var shipping = _customer.LivesInUSA() ? 5m : 35m;
+        var itemsTotal = _items.Sum(p => p.GetTotalCost());
+        var shipping = 35m;
+        if (_customer.LivesInUSA()) shipping = 5m;
         return itemsTotal + shipping;
-    }
-
-    public string GetPackingLabel()
-    {
-        var sb = new StringBuilder();
-        sb.AppendLine("PACKING LABEL");
-
-        foreach (var p in _products)
-        {
-            sb.AppendLine($"{p.GetName()} | {p.GetProductId()}");
-        }
-
-        return sb.ToString();
     }
 
     public string GetShippingLabel()
@@ -43,6 +34,19 @@ public class Order
         sb.AppendLine("SHIPPING LABEL");
         sb.AppendLine(_customer.GetName());
         sb.Append(_customer.GetAddress().GetFullAddress());
+        return sb.ToString();
+    }
+
+    public string GetPackingLabel()
+    {
+        var sb = new StringBuilder();
+        sb.AppendLine("PACKING LABEL");
+        foreach (var item in _items)
+        {
+            sb.AppendLine($"{item.GetName()} | {item.GetProductId()}");
+        }
+
+        if (_items.Count == 0) sb.Append("(empty)");
         return sb.ToString();
     }
 }
